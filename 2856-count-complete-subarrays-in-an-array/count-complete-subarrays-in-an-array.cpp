@@ -17,9 +17,7 @@ public:
         while(r < n ){
             mp[nums[r]]++ ;
             while(l <= r && mp.size() == dis_ele){
-                cnt += n - r ; // main concept to remember 
-                 // If window [left, right] is valid, then all subarrays 
-                // from 'left' to 'right', 'right+1', ..., 'n-1' are also valid.
+                cnt += n - r ; 
                 mp[nums[l]]-- ;
                 if(mp[nums[l]] == 0 ){
                     mp.erase(nums[l]);
