@@ -9,16 +9,22 @@ public:
         // for(int ele: set){
         //     cout << ele << ' ';
         // }
-        int n = set.size();
-        int cnt = 0  ; 
+        int dis_ele = set.size();
+        unordered_map<int , int > mp;
+        int n = nums.size();
 
-        for(int i = 0 ; i < nums.size() ;i++ ){
-            unordered_set<int > sett ;
-            for(int j = i ; j < nums.size() ; j++){
-                sett.insert(nums[j]);
-                if(sett.size() == n ) cnt++ ;
+        int l = 0 , r= 0 , cnt = 0 ;
+        while(r < n ){
+            mp[nums[r]]++ ;
+            while(l <= r && mp.size() == dis_ele){
+                cnt += n - r ;
+                mp[nums[l]]-- ;
+                if(mp[nums[l]] == 0 ){
+                    mp.erase(nums[l]);
+                }
+                l++ ;
             }
-
+            r++ ;
         }
 
         return cnt  ;
