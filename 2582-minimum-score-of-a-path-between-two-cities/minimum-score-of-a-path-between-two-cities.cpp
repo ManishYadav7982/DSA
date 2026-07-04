@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<pair<int, int>>> adj;
+    vector<int> vis;
+    int ans = INT_MAX;
+
+    void dfs(int node) {
+        vis[node] = 1;
+
+        for (auto &it : adj[node]) {
+            int next = it.first;
+            int dist = it.second;
+
+            ans = min(ans, dist);
+
+            if (!vis[next])
+                dfs(next);
+        }
+    }
+
+    int minScore(int n, vector<vector<int>>& roads) {
+        adj.resize(n + 1);
+        vis.assign(n + 1, 0);
+
+        for (auto &road : roads) {
+            int u = road[0];
+            int v = road[1];
+            int d = road[2];
+
+            adj[u].push_back({v, d});
+            adj[v].push_back({u, d});
+        }
+
+        dfs(1);
+
+        return ans;
+    }
+};
