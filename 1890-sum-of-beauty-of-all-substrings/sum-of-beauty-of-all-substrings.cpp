@@ -4,7 +4,7 @@ public:
     int n = s.size() ;
     int ans = 0 ;
     for(int i = 0 ;i<n;i++){
-        cout <<"\n" ;
+        // cout <<"\n" ;
         unordered_map<char , int>mp;
         for(int j=i;j<n;j++){
             mp[s[j]]++ ;
