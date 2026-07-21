@@ -4,7 +4,7 @@ class Solution {
         color[node] = currcolor ;
         for(int neighbor  : graph[node ]){
             if (color[neighbor] == -1) {
-                if (!dfs(neighbor, 1 - currcolor, graph, color)) {
+                if (!dfs(neighbor, !currcolor, graph, color)) {
                     return false;
                 }
             } 
@@ -31,9 +31,5 @@ public:
         }
 
         return true ;
-
-      
-
-        
     }
 };
