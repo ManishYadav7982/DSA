@@ -38,9 +38,9 @@ public:
 
         }
 
-        cout << complete_course ;
-        vector<int >empty ;
-        if(complete_course != numCourses) return empty ;
+        // cout << complete_course ;
+        // vector<int >empty ;
+        if(complete_course != numCourses) return {} ;
         return ans  ;
 
         
