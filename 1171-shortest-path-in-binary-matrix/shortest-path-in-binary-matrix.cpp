@@ -5,10 +5,10 @@ public:
         int m = mat[0].size();
          int src[] ={0 , 0 } ;
          int dest[] = {n-1 , m-1 } ;
-        // Edge check: Blocked source/destination
+        // Blocked source/dest
         if (mat[src[0]][src[1]] == 1 || mat[dest[0]][dest[1]] == 1) return -1;
         
-        // Edge check: Source is already destination
+        // Source is already destination
         // cout << src[0] << dest[0] << src[1] << dest[1] ; 
         if (src[0] == dest[0] && src[1] == dest[1]) return 1;
         vector<vector<int>> vis(n , vector<int > (m , 1e9));
