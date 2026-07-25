@@ -4,7 +4,7 @@ public:
                           int k) {
         vector<vector<pair<int, int>>> adj(n);
 
-        for (auto e : flights) {
+        for (auto &e : flights) {
             int u = e[0];
             int v = e[1];
             int wt = e[2];
@@ -29,7 +29,7 @@ public:
             q.pop();
             if (stops > k)
                 continue;
-            for (auto [nbd, edgw] : adj[curr]) {
+            for (auto& [nbd, edgw] : adj[curr]) {
 
                 if (wt + edgw < dist[nbd] && stops <= k) {
                     dist[nbd] = wt + edgw;
