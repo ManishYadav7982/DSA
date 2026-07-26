@@ -3,7 +3,7 @@ public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
 
         vector<vector<pair<int, int>>> adj(n+1 );
-        for (auto e : times) {
+        for (const auto &e : times) {
             int u = e[0];
             int v = e[1];
             int wt = e[2];
@@ -27,7 +27,7 @@ public:
 
             if(dist[dst] < currwt) continue ;
 
-            for(auto ele : adj[dst]){ // travel on nbd of dst node 
+            for(auto &ele : adj[dst]){ // travel on nbd of dst node 
                 auto [nbd_wt , nbd] = ele ;
                 if(nbd_wt + currwt < dist[nbd]){
                     dist[nbd] = nbd_wt + currwt ;
