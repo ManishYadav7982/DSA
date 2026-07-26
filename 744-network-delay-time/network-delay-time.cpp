@@ -39,11 +39,13 @@ public:
 
         }
 
-        for(int e : dist ){
-            // cout << e << ' ' ;
-            if( e == 1e9) return -1 ;
+        int  mx = 0;
+        for (int i = 1; i <= n; ++i) {
+            if (dist[i] == 1e9) return -1;
+            mx = max(mx, dist[i]);
         }
-        return *max_element(dist.begin() , dist.end()) ;
+
+        return mx;
 
 
           
