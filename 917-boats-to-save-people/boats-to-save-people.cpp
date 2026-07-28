@@ -7,7 +7,7 @@ public:
         int l=0 ;
         int h = n-1 ; // 
         int cnt =0 ;
-        while(l <h){
+        while(l <=h){
             if(people[l] + people[h] <= limit  ){
                 cnt++ ;
                 l++ ;
@@ -16,9 +16,9 @@ public:
            else cnt++ , h-- ;
         //    cout << cnt << "H : " << h << "L : " << l << ' ' ;
         }
-        if(l==h){
-            cnt++ ;
-        }
+        // if(l==h){
+        //     cnt++ ;
+        // }
         return cnt ;
 
 
