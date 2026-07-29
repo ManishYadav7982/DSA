@@ -2,55 +2,46 @@ class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
         int n = grid.size() ;
-        int m = grid[0].size() ;
-        queue<pair<pair<int , int > , int >> q ;
-        vector<vector<int>> vis(n  ,vector <int> (m , 0 ));
+        int m =grid[0].size() ;
 
-        int cntfresh =  0;
+        vector<vector<int >> vis = grid ;
 
-        // first push which is already rotton at t = 0 ;
+        queue<tuple<int,int,int> > q ; // row , col , time 
+
         for(int i =0;i<n;i++){
-            for(int j =0;j<m;j++){
+            for(int j = 0 ;j<m;j++){
                 if(grid[i][j] == 2 ){
-                    q.push({{i , j},0}) ;
-                    vis[i][j]=2 ;
-                }
-                else  if(grid[i][j] ==  1){
-                    cntfresh++ ;
+                    q.push({i , j , 0  }) ;
                 }
             }
         }
-        int maxtm = 0 ;
-        int row[] = {0 , -1, 0 , 1};
-            int col[] ={-1 , 0 ,+1 , 0 } ;
-            int cnt=0;
-        while(q.size() > 0 ){
-            int r = q.front().first.first ;
-            int c = q.front().first.second ;
-            int t = q.front().second ;
-        q.pop();
-            maxtm = max(maxtm , t);
+        int mx_time = 0 ;
+        while(!q.empty()){
+            auto [rw , cl , time ] = q.front() ;
+            q.pop() ;
+            mx_time = max(mx_time , time );
+            int row[] = {0 , -1 , 0 , 1} ;
+            int col[] = {-1 ,0 , 1 , 0 } ;
 
             for(int i=0;i<4;i++){
-                int travlrow = r + row[i];
-                int travlcol = c+col[i] ;
+                int n_row = rw + row[i] ;
+                int n_col = cl + col[i] ;
 
-                if( travlrow >= 0 && travlrow< n && travlcol>=0 && travlcol< m && grid[travlrow][travlcol] == 1 && vis[travlrow][travlcol] != 2 ){
-                    q.push({{travlrow , travlcol} , t+1  }) ;
-                    vis[travlrow][travlcol] = 2 ;
-                    cnt++ ; 
+                if(n_row >= 0 && n_row < n && n_col >=0 && n_col < m && vis[n_row][n_col] == 1){
+                    vis[n_row][n_col] = 2 ;
+                    q.push({n_row , n_col , mx_time+1}) ;
                 }
-
             }
-
-
-
-
         }
 
-        if(cnt != cntfresh ) return -1 ;
-        else return maxtm ;
 
+        for(int i = 0 ;i<n;i++){
+            for(int j =0;j<m;j++){
+                if(vis[i][j] == 1  ) return -1 ;
+            }
+        }
+
+        return mx_time ;
 
 
         
