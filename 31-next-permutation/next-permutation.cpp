@@ -1,39 +1,22 @@
 class Solution {
-    private :
-     void swapp(vector<int>& ans, priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>& q, int index) {
-        while(!q.empty()){
-            auto top_pair = q.top();
-            int new_ele = top_pair.first;
-            int ind = -top_pair.second;
-            q.pop();
-
-            if(new_ele > ans[index]){
-                swap(ans[index], ans[ind]);
-                return;
-            }
-        }
-    }
-
 public:
-    void nextPermutation(vector<int>& ans) {
-        int n = ans.size(); 
-        if (n <= 1) return;
+    void nextPermutation(vector<int>& nums) {
+        int n=nums.size() ;
 
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
-
-        int i = n - 2;
-
-        while (i >= 0) {
-            q.push({ans[i + 1], -(i + 1 ) });
-
-            if (ans[i] < ans[i + 1]) {
-                swapp(ans, q, i);
-                reverse(ans.begin() + i + 1, ans.end());
-                return; 
-            }
-            i--;
+        int i = n-2 ;
+        while(i>=0 && nums[i] >= nums[i+1]){
+            i-- ;
         }
-        reverse(ans.begin(), ans.end());
+
+        if(i>=0){
+            int j =n-1 ;
+            while( nums[i] >= nums[j]){
+                j-- ;
+            }
+
+            swap(nums[i], nums[j]) ;
+        }
         
+        reverse(nums.begin() + i +1 , nums.end()) ;
     }
 };
