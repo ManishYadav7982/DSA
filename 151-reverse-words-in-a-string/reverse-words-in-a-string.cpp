@@ -1,12 +1,12 @@
 class Solution {
 
     private :
-    void made(string &ans , string s , int left , int right ){
+    void made(string &ans , string &s , int left , int right ){
         // cout << left << "  " <<  right << ' ' ; 
-        int leftt = left+1 ; // so that main left not changes ;
-        while(leftt <= right ){
-            ans+= s[leftt] ;
-            leftt++ ; 
+        left++ ; // so that main left not changes ;
+        while(left <= right ){
+            ans+= s[left] ;
+            left++ ; 
             // cout << s[leftt] << ' ' ; 
         }
         
