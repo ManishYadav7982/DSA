@@ -1,19 +1,20 @@
 class Solution {
 
     private :
-    void made(string &ans , string &temp){
-        int n = temp.size() ;
-        int j = n-1 ;
-        while(j >= 0){
-            ans+=temp[j] ;
-            j-- ; 
+    void made(string &ans , string s , int left , int right ){
+        // cout << left << "  " <<  right << ' ' ; 
+        int leftt = left+1 ; // so that main left not changes ;
+        while(leftt <= right ){
+            ans+= s[leftt] ;
+            leftt++ ; 
+            // cout << s[leftt] << ' ' ; 
         }
-        temp.erase() ;
+        
         
     }
 public:
     string reverseWords(string s) {
-        string temp ="" ;
+        // string temp ="" ;
         int n = s.size() ;
         int i = n-1;
         int j = 0 ;
@@ -25,20 +26,24 @@ public:
             j++ ;
         }
 
-        while(j <= i ){
-            if(s[i] == ' '){
-                made(ans , temp) ;
+        int second_ind_i = i ;
+        // cout << second_ind_i << "  " << i ;
+
+        while(j <= second_ind_i ){
+            if(s[second_ind_i] == ' '){
+                cout << second_ind_i << "  " << i ;
+                made(ans , s ,second_ind_i , i  ) ;
                 ans+=' ' ;
-                while(s[i] == ' '){
-                    i-- ;
+                while(s[second_ind_i] == ' '){
+                   second_ind_i-- ;
                 }
+                i = second_ind_i ; 
             }
             else{
-                temp+=s[i] ;
-                i-- ;
+               second_ind_i-- ;
             }
         }
-        made(ans , temp) ; 
+        made(ans , s ,second_ind_i , i  ) ;
         return ans ;
     }
 };
