@@ -31,7 +31,7 @@ public:
 
         while(j <= second_ind_i ){
             if(s[second_ind_i] == ' '){
-                cout << second_ind_i << "  " << i ;
+                // cout << second_ind_i << "  " << i ;
                 made(ans , s ,second_ind_i , i  ) ;
                 ans+=' ' ;
                 while(s[second_ind_i] == ' '){
