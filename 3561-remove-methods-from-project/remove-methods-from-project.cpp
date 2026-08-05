@@ -1,49 +1,102 @@
-#include <vector>
-
-using namespace std;
-
 class Solution {
-private:
-    // DFS to mark all suspicious methods reachable from k
-    void markSuspicious(int node, vector<vector<int>>& adj, vector<bool>& isSuspicious) {
-        isSuspicious[node] = true;
-        for (int neighbor : adj[node]) {
-            if (!isSuspicious[neighbor]) {
-                markSuspicious(neighbor, adj, isSuspicious);
+    private :
+    void dfs(int node , vector<vector<int>> &adj  , vector<int> &vis ){
+        vis[node] =1 ;
+
+        for(auto & nbd : adj[node]){
+            if(!vis[nbd]){
+                dfs(nbd ,adj , vis ) ; 
             }
         }
     }
 
-public:
-    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
-        vector<vector<int>> adj(n);
-        for (const auto& edge : invocations) {
-            adj[edge[0]].push_back(edge[1]);
+    void dffs(int node , vector<vector<int>> &adj  , vector<int> &vis , vector<int>&ans){
+        vis[node] = -1 ;
+        ans.push_back(node);
+        for(auto &nbd : adj[node]){
+            if(vis[nbd] ==0 ){
+                dffs(nbd , adj , vis , ans );
+            }
         }
 
-        // Step 1: Mark all methods reachable from 'k'
-        vector<bool> isSuspicious(n, false);
-        markSuspicious(k, adj, isSuspicious);
 
-        // Step 2: Check for external calls (u is safe, v is suspicious)
-        for (const auto& edge : invocations) {
-            int u = edge[0];
-            int v = edge[1];
-            if (!isSuspicious[u] && isSuspicious[v]) {
-                // Illegal to remove! Return ALL methods
-                vector<int> allMethods(n);
-                for (int i = 0; i < n; ++i) allMethods[i] = i;
+
+
+
+    }
+public:
+    vector<int> remainingMethods(int n, int k,
+                                 vector<vector<int>>& invocations) {
+        int size = invocations.size();
+        vector<vector<int>> adj(n);
+
+        vector<int> vis(n , 0 );
+
+        for (auto e : invocations) {
+            int u = e[0];
+            int v = e[1];
+            // if(u == k ){
+            //     adj[u].push_back(v);
+            //     adj[v].push_back(u);
+
+            // }
+             adj[u].push_back(v);
+            // Indeg[v]++;
+        }
+        // for (int i = 0; i < n; i++) {
+        //     for (int j : adj[i]) {
+        //         cout << j << ' ';
+        //     }
+        //     cout << endl;
+        // }
+
+        // cout << endl << endl;
+        
+
+        dfs(k ,adj ,vis  );
+
+        // for (int i : vis) {
+        //     cout << i << ' ';
+        // }
+
+        for (auto e : invocations) {
+            int u = e[0];
+            int v = e[1];
+            if (vis[u] != 1 && vis[v] == 1) {
+                vector<int> allMethods;
+                for (int i = 0; i < n; i++) allMethods.push_back(i);
                 return allMethods;
             }
         }
-
-        // Step 3: Collect only non-suspicious methods
         vector<int> ans;
-        for (int i = 0; i < n; ++i) {
-            if (!isSuspicious[i]) {
-                ans.push_back(i);
+        for (int i = 0; i < n; i++) {
+            if (vis[i] == 0) {
+                dffs(i, adj, vis, ans);
             }
         }
+
+        // queue<int> q;
+
+        // for (int i = 0; i < n; i++) {
+        //     if (Indeg[i] == 0) {
+        //         q.push(i);
+        //     }
+        // }
+        // vector<int> ans;
+
+        // while (!q.empty()) {
+        //     int node = q.top();
+        //     q.pop();
+        //     // ans.push_back(node) ;
+        //     for (auto& nbd : adj[node]) {
+        //         ans.push_back(node) ;
+        //         Indeg[nbd]-- ;
+        //         if(Indeg[nbd] == 0 ){
+        //             q.push(nbd) ;
+        //         }
+
+        //     }
+        // }
 
         return ans;
     }
