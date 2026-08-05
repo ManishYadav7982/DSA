@@ -5,11 +5,13 @@ class Solution {
             return ; 
         }
 
-        ds.push_back(nums[ind]);
-        f(nums , ans , ds , ind+1 );
-        ds.pop_back() ;
 
-        f(nums , ans , ds , ind+1 );
+        // backtracking 
+        ds.push_back(nums[ind]); // do somethings 
+        f(nums , ans , ds , ind+1 ); // expore 
+        ds.pop_back() ;// undo 
+
+        f(nums , ans , ds , ind+1 ); // again expore in undo thing with +1 ind ; 
 
         
     }
