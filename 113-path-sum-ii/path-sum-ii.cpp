@@ -1,4 +1,3 @@
-//
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -7,33 +6,55 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
-public:
-    vector<vector<int>> ans;
-    vector<int> path;
+    void f(TreeNode* root, int targetSum, vector<int>& store,
+           vector<vector<int>>& ans) {
 
-    void solve(TreeNode* root, int targetSum) {
-        if (root == NULL) return;
-
-        path.push_back(root->val);
-        targetSum -= root->val;
-
-        if (root->left == NULL && root->right == NULL && targetSum == 0) {
-            ans.push_back(path);
+        if (root->left == NULL && root->right == NULL && targetSum == root->val) {
+            store.push_back(root ->val) ;
+            ans.push_back(store);
+            store.pop_back() ;
+            return;
         }
 
-        solve(root->left, targetSum);
-        solve(root->right, targetSum);
+        else if (root->left == NULL && root->right == NULL && targetSum != root ->val ) {
+            return;
+        }
+        // for(int i : store){
+        //     cout <<i <<"  " ; 
+        // }
+        // cout << endl ; 
 
-        // Backtrack
-        path.pop_back();
+        if (root->left != NULL) {
+            store.push_back(root->val);
+            f(root->left, targetSum - root->val, store, ans);
+            store.pop_back();
+        }
+
+        if (root->right != NULL) {
+            store.push_back(root->val);
+            f(root->right, targetSum - root->val, store, ans);
+            store.pop_back();
+        }
+
+        
     }
 
+public:
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        solve(root, targetSum);
+        vector<vector<int>> ans;
+        vector<int> store;
+        set<vector<int>> set;
+        if (root == NULL)
+            return ans;
+        f(root, targetSum , store, ans);
+        // for (auto i : set) {
+        //     ans.push_back(i);
+        // }
         return ans;
     }
 };
