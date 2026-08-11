@@ -1,6 +1,6 @@
 class Solution {
     int f(int ind, int sum, vector<int>& nums, int& target) {
-        if (ind >= nums.size() && sum != target) {
+        if (ind == nums.size() && sum != target) {
             return 0;
         } else if (ind == nums.size() && sum == target) {
             return 1;
