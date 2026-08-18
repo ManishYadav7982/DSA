@@ -1,28 +1,29 @@
 class Solution {
-private:
-    int f(int ind, int amount, vector<int>& coins, vector<vector<int>>& dp) {
-        if (amount == 0)
-            return 1;
 
-        if (ind == coins.size() || amount < 0)
-            return 0;
-
-        if (dp[ind][amount] != -1)
-            return dp[ind][amount];
-
-        int take = 0;
-        if (coins[ind] <= amount) {
-            take = f(ind, amount - coins[ind], coins, dp);
+    private:
+    int f(int ind, int amt, vector<int>& coins,vector<vector<int>> &dp) {
+        if (ind == 0) {
+            if (amt % coins[0] == 0)
+                return 1;
+            else
+                return 0;
         }
-        int skip = f(ind + 1, amount, coins, dp);
+        
+        if(dp[ind][amt] != -1 ) return dp[ind][amt] ;
 
-        return dp[ind][amount] = take + skip;
+        int nottake = f(ind - 1, amt, coins ,dp);
+        int take = 0;
+        if (amt >= coins[ind]) {
+            take =  f(ind, amt - coins[ind], coins ,dp);
+        }
+
+        return  dp[ind][amt] = take+ nottake;
     }
-
 public:
     int change(int amount, vector<int>& coins) {
-        int n = coins.size() ;
+         int n = coins.size();
         vector<vector<int>> dp(n, vector<int>(amount + 1, -1));
-        return f(0, amount, coins, dp);
+         int ans = f(n-1 , amount,coins,dp ) ;
+         return ans ;
     }
 };
