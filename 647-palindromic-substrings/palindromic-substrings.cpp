@@ -3,7 +3,7 @@ class Solution {
 private:
     int Checkpalind(string& s, int left, int right) {
         int count = 0;
-        while (left >= 0 && right < s.length() && s[left] == s[right]) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
             count++;
             left--;
             right++;
@@ -14,7 +14,7 @@ private:
 public:
     int countSubstrings(string s) {
         int ans = 0;
-        int n = s.length();
+        int n = s.size();
 
         for (int i = 0; i < n; i++) {
             ans += Checkpalind(s, i, i); // check odd
