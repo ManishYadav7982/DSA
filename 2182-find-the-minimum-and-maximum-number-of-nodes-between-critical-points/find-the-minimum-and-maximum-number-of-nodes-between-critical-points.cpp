@@ -20,9 +20,6 @@ public:
            return {-1 ,-1} ;
         }
         ListNode* forw = head ->next->next ;
-
-
-
         int ind = 2;
         // cout << forward ;
 
@@ -44,13 +41,13 @@ public:
 
         // cout <<endl ;
 
-        // for (auto i : temp) {
-        //     cout << i << ' ';
-        // }
+        for (auto i : temp) {
+            cout << i << ' ';
+        }
 
         // cout << endl <<endl ;
 
-        int min =-1 ,max=-1 ;
+        int minm =INT_MAX ,max=-1 ;
 
         if(temp.size() < 2){
             return {-1 ,-1} ;
@@ -59,14 +56,14 @@ public:
          max = temp[temp.size() -1 ] - temp[0];
         // cout << max << "   " ;
 
-        vector<int> store ;
+        // vector<int> store ;
         for(int i=1 ;i< temp.size() ;i++){
-            store.push_back(temp[i] - temp[i-1]) ;
+            minm = min(minm , temp[i] - temp[i-1]);
         }
 
-         min = *min_element(store.begin() , store.end());
+        //  min = *min_element(store.begin() , store.end());
         // cout << min ; 
 
-        return {min,max};
+        return {minm,max};
     }
 };
