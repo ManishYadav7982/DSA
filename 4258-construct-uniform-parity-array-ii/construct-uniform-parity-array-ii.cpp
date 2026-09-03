@@ -26,8 +26,6 @@ class Solution {
         return true ;
 
 
-
-
     }
 public:
     bool uniformArray(vector<int>& nums1) {
@@ -55,19 +53,16 @@ public:
         // }
 
 
-        int MinEven = 1e9;
+        // int MinEven = 1e9;
         int MinOdd = 1e9 -1 ;
 
         for(int i : nums1){
-            if(i  % 2 == 0  ){
-               MinEven = min(MinEven , i ) ; 
-            }
-            else {
-                MinOdd = min(MinOdd , i ) ; 
+            if(i  % 2 != 0  ){
+               MinOdd = min(MinOdd , i ) ; 
             }
         }
 
-        cout << MinEven << ' ' << MinOdd ; 
+        // cout << MinEven << ' ' << MinOdd ; 
 
         if(checkEven(nums1 , MinOdd , n  )) return true ;
         
